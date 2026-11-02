@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block content %}<section class="formbox"><p class="eyebrow">ERROR {{code}}</p><h1>Something went wrong</h1><p>{{message}}</p><a href="{{url_for('dashboard') if session.get('uid') else url_for('login')}}">Go back</a></section>{% endblock %}

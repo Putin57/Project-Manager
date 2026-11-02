@@ -1,17 +1,13 @@
 # 🚀 Project Manager
 
-<p align="center">
-  **A Simple, Secure & Efficient Project Management System**
-  
-  Manage projects, organize tasks, assign developers, track deadlines, and collaborate — all in one place.
-</p>
+### A Simple, Secure & Efficient Project Management System
 
-<p align="center">
-  ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)
-  ![Flask](https://img.shields.io/badge/Flask-3.x-black?logo=flask&logoColor=white)
-  ![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite&logoColor=white)
-  ![License](https://img.shields.io/badge/License-MIT-green.svg)
-</p>
+Manage projects, organize tasks, assign developers, track deadlines, and collaborate — all in one place.
+
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-3.x-black?logo=flask&logoColor=white)
+![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 ---
 

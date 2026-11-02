@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Create First Admin · Project Manager{% endblock %}
+{% block content %}
+<section class="login">
+  <div class="login-heading">
+    <div>
+      <p class="eyebrow">INITIAL ADMIN SETUP</p>
+      <h1>Create <span>Admin</span></h1>
+      <p class="muted">Set up the administrator account for this project.</p>
+    </div>
+    <img class="login-logo" src="{{ url_for('static', filename='project-manager-logo.png') }}" alt="Project Manager logo">
+  </div>
+
+  <p class="muted">This page is available only until the first Admin account is created.</p>
+
+  <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf }}">
+    <label>Username
+      <input name="username" required maxlength="80" autocomplete="username" autofocus>
+    </label>
+    <label>Full name
+      <input name="full_name" required maxlength="120" autocomplete="name">
+    </label>
+    <label>Password (at least 12 characters)
+      <input type="password" name="password" required minlength="12" autocomplete="new-password">
+    </label>
+    <label>Confirm password
+      <input type="password" name="confirm" required minlength="12" autocomplete="new-password">
+    </label>
+    <button class="primary">Create Admin account</button>
+  </form>
+
+  <p class="muted"><a href="{{ url_for('login') }}">Back to sign in</a></p>
+</section>
+{% endblock %}

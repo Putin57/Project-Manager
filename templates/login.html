@@ -3,7 +3,11 @@
 {% block content %}
 <section class="login">
   <div class="login-heading">
-    <div><p class="eyebrow">PROJECT CONTROL CENTER</p><h1>Project <span>Manager</span></h1><p class="muted">Welcome back. Sign in to manage your work.</p></div>
+    <div>
+      <p class="eyebrow">PROJECT CONTROL CENTER</p>
+      <h1>Project <span>Manager</span></h1>
+      <p class="muted">Welcome back. Sign in to manage your work.</p>
+    </div>
     <img class="login-logo" src="{{url_for('static',filename='project-manager-logo.png')}}" alt="Project Manager logo">
   </div>
   <p class="muted">Sign in to manage projects, tasks and deadlines.</p>
@@ -13,10 +17,15 @@
     <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
     <button class="primary">Sign in</button>
   </form>
-  <aside><b>Demo accounts</b>
+  {% if setup_available %}
+  <p class="muted"><a href="{{ url_for('setup_admin') }}">Create the first Admin account</a></p>
+  {% endif %}
+  <aside>
+    <b>Demo accounts (new local databases only)</b>
     <p>Manager: manager / manager123</p>
     <p>Developer: developer1 / dev123</p>
     <p>Developer: developer2 / dev123</p>
+    <p>Admin accounts are created securely during the one-time first-admin setup.</p>
   </aside>
 </section>
 {% endblock %}

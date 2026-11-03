@@ -619,3 +619,31 @@ aside p {
         flex-direction: column;
     }
 }
+
+
+/* Administration */
+.danger {
+    border: 1px solid #8a3941;
+    border-radius: 7px;
+    background: #421f25;
+    color: #ffb8bb;
+    padding: 10px 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.danger:hover { background: #5a252d; }
+.smallbtn { padding: 7px 10px; font-size: 12px; }
+.admin-create { max-width: 760px; margin: 18px 0 30px; }
+.admin-create form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.admin-create form label:nth-child(4),
+.admin-create form button { grid-column: 1 / -1; justify-self: start; }
+.admin-create small { font-weight: 400; line-height: 1.4; }
+.inline-form { display: flex; align-items: center; gap: 8px; min-width: 220px; }
+.inline-form select { min-width: 130px; }
+.admin-note { margin: 16px 0; font-size: 13px; }
+@media (max-width: 700px) {
+    .admin-create form { grid-template-columns: 1fr; }
+    .admin-create form label:nth-child(4),
+    .admin-create form button { grid-column: auto; }
+    .inline-form { flex-direction: column; align-items: stretch; }
+}

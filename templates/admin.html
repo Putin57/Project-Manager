@@ -1,0 +1,27 @@
+{% extends "base.html" %}{% block title %}Admin panel · TaskFlow{% endblock %}{% block content %}
+<div class="heading"><div><p class="eyebrow">SYSTEM ADMINISTRATION</p><h1>Admin panel</h1><p class="muted">Manage accounts and project ownership across the application.</p></div></div>
+<section class="formbox admin-create"><h2>Create an account</h2>
+<form method="post" action="{{url_for('admin_user_new')}}">
+<input type="hidden" name="_csrf" value="{{csrf}}">
+<label>Full name<input name="full_name" maxlength="100" required></label>
+<label>Username<input name="username" maxlength="60" required autocomplete="off"></label>
+<label>Temporary password<input type="password" name="password" minlength="8" required autocomplete="new-password"><small class="muted">Use at least 8 characters. Share credentials securely and ask the user to change the password outside this demo workflow.</small></label>
+<label>Role<select name="role" required><option value="developer">Developer</option><option value="manager">Project Manager</option></select></label>
+<button class="primary">Create account</button></form></section>
+<h2 class="section-title">User accounts</h2>
+<div class="tablewrap"><table><tr><th>Name</th><th>Username</th><th>Role</th><th>Assigned tasks</th><th>Managed projects</th><th>Action</th></tr>
+{% for u in users %}<tr><td>{{u.full_name}}</td><td>{{u.username}}</td><td>{{u.role|title}}</td><td>{{u.assigned_tasks}}</td><td>{{u.managed_projects}}</td><td>
+{% if u.role!='admin' %}
+<form method="post" action="{{url_for('admin_user_delete',uid=u.id)}}" onsubmit="return confirm('Remove this account? It must have no assigned tasks or owned projects. Historical comments and subtasks will be preserved.');">
+<input type="hidden" name="_csrf" value="{{csrf}}"><button class="danger smallbtn">Remove account</button></form>
+{% else %}<span class="muted">Protected</span>{% endif %}</td></tr>{% endfor %}
+</table></div>
+<h2 class="section-title">Projects and ownership</h2>
+<div class="tablewrap"><table><tr><th>Project</th><th>Current manager</th><th>Deadline</th><th>Reassign manager</th></tr>
+{% for p in projects %}<tr><td><a href="{{url_for('project',pid=p.id)}}">{{p.name}}</a></td><td>{{p.manager}}</td><td>{{p.deadline}}</td><td>
+<form class="inline-form" method="post" action="{{url_for('project_reassign',pid=p.id)}}"><input type="hidden" name="_csrf" value="{{csrf}}">
+<select name="manager_id" required>{% for u in users if u.role=='manager' %}<option value="{{u.id}}" {% if u.id==p.manager_id %}selected{% endif %}>{{u.full_name}}</option>{% endfor %}</select><button class="soft">Reassign</button></form></td></tr>
+{% else %}<tr><td colspan="4">No projects yet.</td></tr>{% endfor %}
+</table></div>
+<p class="muted admin-note">Account removal is blocked while a developer has assigned tasks or a manager owns projects. Reassign work first. Historical comment and subtask author names are retained.</p>
+{% endblock %}

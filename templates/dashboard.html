@@ -1,4 +1,15 @@
 {% extends "base.html" %}{% block title %}Dashboard · TaskFlow{% endblock %}{% block content %}
-<div class="heading"><div><p class="eyebrow">{{session.role|upper}} WORKSPACE</p><h1>Dashboard</h1><p class="muted">Track projects, deadlines and task progress.</p></div>{% if session.role=='manager' %}<a class="primary linkbtn" href="{{url_for('project_new')}}">+ Create project</a>{% endif %}</div>
-<div class="grid">{% for p in projects %}<a class="card" href="{{url_for('project',pid=p.id)}}"><small>PROJECT · Due {{p.deadline}}</small><h2>{{p.name}}</h2><p>{{p.description or 'No description added.'}}</p><b>{{p.n}} tasks →</b></a>{% else %}<p class="empty">No projects available yet.</p>{% endfor %}</div>
-<h2 class="section-title">{% if session.role=='manager' %}All tasks{% else %}My tasks{% endif %}</h2><div class="tablewrap"><table><tr><th>Task</th><th>Project</th><th>Developer</th><th>Deadline</th><th>Status</th></tr>{% for t in tasks %}<tr><td><a href="{{url_for('project',pid=t.project_id)}}">{{t.title}}</a></td><td>{{t.project}}</td><td>{{t.developer}}</td><td>{{t.deadline}}</td><td><span class="status {{status(t)}}">{{'Completed on time' if status(t)=='green' else 'Overdue / late' if status(t)=='red' else 'In progress'}}</span></td></tr>{% else %}<tr><td colspan="5">No tasks yet.</td></tr>{% endfor %}</table></div>{% endblock %}
+<div class="heading">
+  <div><p class="eyebrow">{{session.role|upper}} WORKSPACE</p><h1>Dashboard</h1><p class="muted">Track projects, deadlines and task progress.</p></div>
+  {% if session.role in ('admin','manager') %}<a class="primary linkbtn" href="{{url_for('project_new')}}">+ Create project</a>{% endif %}
+</div>
+<div class="grid">
+{% for p in projects %}
+  <a class="card" href="{{url_for('project',pid=p.id)}}"><small>PROJECT · Due {{p.deadline}}</small><h2>{{p.name}}</h2><p>{{p.description or 'No description added.'}}</p><b>{{p.n}} tasks →</b></a>
+{% else %}<p class="empty">No projects available yet.</p>{% endfor %}
+</div>
+<h2 class="section-title">{% if session.role in ('admin','manager') %}All tasks{% else %}My tasks{% endif %}</h2>
+<div class="tablewrap"><table><tr><th>Task</th><th>Project</th><th>Developer</th><th>Deadline</th><th>Status</th></tr>
+{% for t in tasks %}<tr><td><a href="{{url_for('project',pid=t.project_id)}}">{{t.title}}</a></td><td>{{t.project}}</td><td>{{t.developer}}</td><td>{{t.deadline}}</td><td><span class="status {{status(t)}}">{{'Completed on time' if status(t)=='green' else 'Overdue / late' if status(t)=='red' else 'In progress'}}</span></td></tr>
+{% else %}<tr><td colspan="5">No tasks yet.</td></tr>{% endfor %}</table></div>
+{% endblock %}
